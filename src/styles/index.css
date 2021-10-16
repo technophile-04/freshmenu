@@ -12,6 +12,49 @@ code {
 		monospace;
 }
 
-.navbar {
-	background: #000;
+.login-button {
+	background: linear-gradient(to right, #f5914e, #e85826);
+	color: white !important;
+	border-radius: 3px;
+}
+
+.strike {
+	display: block;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.strike > span {
+	position: relative;
+	display: inline-block;
+	color: #4a4a4a7d !important;
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.strike > span:before,
+.strike > span:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	width: 9999px;
+	height: 1px;
+	background: rgba(0, 0, 0, 0.158);
+}
+
+.strike > span:before {
+	right: 100%;
+	margin-right: 15px;
+}
+
+.strike > span:after {
+	left: 100%;
+	margin-left: 15px;
+}
+
+.form-control:focus {
+	outline: none !important;
+	border-color: #e85826 !important;
+	box-shadow: inset 0 1px 1px rgba(182, 96, 96, 0.075), 0 0 8px #e85826;
 }
