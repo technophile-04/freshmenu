@@ -1,7 +1,12 @@
-import React from 'react';
+import React from "react";
+import MultiCarousel from "../components/MultiCarousel";
 
 const Home = () => {
-	return <div>Home</div>;
+  return (
+    <>
+      <MultiCarousel />
+    </>
+  );
 };
 
 export default Home;
