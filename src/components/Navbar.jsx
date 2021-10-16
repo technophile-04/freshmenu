@@ -1,10 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import MCsecond from "./MCsecond";
-import SearchIcon from "@mui/icons-material/Search";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import LoginIcon from "@mui/icons-material/Login";
-import CallIcon from "@mui/icons-material/Call";
 
 function Navbar() {
   return (
@@ -16,7 +12,7 @@ function Navbar() {
               <div className="container-fluid">
                 <NavLink className="navbar-brand" to="/">
                   <img
-                    style={{ width: "95%" }}
+                    style={{ width: "100%" }}
                     className="logo"
                     src="https://www.freshmenu.com/images/fm-header-logo.svg"
                     alt="phonics-logo"
@@ -86,21 +82,27 @@ function Navbar() {
             <nav className="navbar navbar-expand-lg navbar-light secondnav p-0">
               <MCsecond />
               <div className="d-flex flex-row">
-                <div className="p-2 m-3 mx-4">
-                  <CallIcon />
+                <div className="p-2 m-3 mx-4 hovereffect">
+                  <i class="fas fa-headset fa-lg pt-2"></i>
                 </div>
-                <div className="p-2 m-3 mx-5">
-                  <span>
-                    <SearchIcon />
+                <div className="p-2 m-3 mx-3 search  hovereffect">
+                  <span className="p-2">
+                    <i className="fas fa-search"></i>
                   </span>
-                  <span>Search</span>
+                  <span className="fw-bold fs-5">Search</span>
                 </div>
-                <div className="p-2 m-3 mx-5">Offers</div>
-                <div className="p-2 m-3 mx-4">
-                  <HelpOutlineIcon />
+                <div className="p-2 m-3 mx-4 fw-bold fs-5 hovereffect">
+                  Offers
                 </div>
-                <div className="p-2 m-3 mx-4">
-                  <LoginIcon />
+                <div className="p-2 m-3 mx-4 hovereffect">
+                  <Link to="/register">
+                    <i className="fas fa-user-plus fa-lg"></i>
+                  </Link>
+                </div>
+                <div className="p-2 m-3 mx-4 hovereffect">
+                  <Link to="/login">
+                    <i className="fas fa-sign-in-alt fa-lg"></i>
+                  </Link>
                 </div>
               </div>
             </nav>

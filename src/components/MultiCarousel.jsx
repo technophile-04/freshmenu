@@ -2,16 +2,18 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
+import { ImageCard } from "./";
 
 const MultiCarousel = () => {
   function NextArrow(props) {
     const { className, onClick } = props;
     return (
       <div className={className} onClick={onClick}>
-        <ArrowForwardIosIcon style={{ color: "grey", fontSize: "60px" }} />
+        <i
+          class="fas fa-chevron-right"
+          style={{ color: "rgb(168, 165, 165)", fontSize: "3rem" }}
+        ></i>
       </div>
     );
   }
@@ -20,7 +22,10 @@ const MultiCarousel = () => {
     const { className, onClick } = props;
     return (
       <div className={className} onClick={onClick}>
-        <ArrowBackIosIcon style={{ color: "grey", fontSize: "60px" }} />
+        <i
+          class="fas fa-chevron-left"
+          style={{ color: "rgb(168, 165, 165)", fontSize: "3rem" }}
+        ></i>
       </div>
     );
   }
@@ -37,20 +42,19 @@ const MultiCarousel = () => {
     prevArrow: <PrevArrow />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 720,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 2,
+          slidesToScroll: 1,
           infinite: true,
-          dots: true,
         },
       },
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
         },
       },
       {
@@ -64,53 +68,13 @@ const MultiCarousel = () => {
   };
 
   return (
-    <div className="multiContainer mx-auto">
+    <div className="multiContainer mb-5 mx-auto">
       <Slider {...settings}>
-        <div className="carousel-img">
-          <Link to="/">
-            <img
-              className="cimg mx-auto"
-              alt="cimg"
-              src="https://picsum.photos/460/320"
-            />
-          </Link>
-        </div>
-        <div className="carousel-img">
-          <Link to="/">
-            <img
-              className="cimg mx-auto"
-              alt="cimg"
-              src="https://picsum.photos/460/320"
-            />
-          </Link>
-        </div>
-        <div className="carousel-img">
-          <Link to="/">
-            <img
-              className="cimg mx-auto"
-              alt="cimg"
-              src="https://picsum.photos/460/320"
-            />
-          </Link>
-        </div>
-        <div className="carousel-img">
-          <Link to="/">
-            <img
-              className="cimg mx-auto"
-              alt="cimg"
-              src="https://picsum.photos/460/320"
-            />
-          </Link>
-        </div>
-        <div className="carousel-img">
-          <Link to="/">
-            <img
-              className="cimg mx-auto"
-              alt="cimg mx-auto"
-              src="https://picsum.photos/460/320"
-            />
-          </Link>
-        </div>
+        <ImageCard img="https://picsum.photos/480/320" />
+        <ImageCard img="https://picsum.photos/480/320" />
+        <ImageCard img="https://picsum.photos/480/320" />
+        <ImageCard img="https://picsum.photos/480/320" />
+        <ImageCard img="https://picsum.photos/480/320" />
       </Slider>
     </div>
   );

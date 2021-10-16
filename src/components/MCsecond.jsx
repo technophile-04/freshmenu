@@ -3,15 +3,16 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Link } from "react-router-dom";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const MCsecond = () => {
   function NextArrow(props) {
     const { className, onClick } = props;
     return (
       <div className={className} onClick={onClick}>
-        <ArrowForwardIosIcon style={{ color: "grey", fontSize: "15px" }} />
+        <i
+          class="fas fa-chevron-right"
+          style={{ color: "rgb(168, 165, 165)", fontSize: "1rem" }}
+        ></i>
       </div>
     );
   }
@@ -20,9 +21,10 @@ const MCsecond = () => {
     const { className, onClick } = props;
     return (
       <div className={className} onClick={onClick}>
-        <ArrowBackIosIcon
-          style={{ color: "grey", fontSize: "15px", marginLeft: "0" }}
-        />
+        <i
+          class="fas fa-chevron-left"
+          style={{ color: "rgb(168, 165, 165)", fontSize: "1rem" }}
+        ></i>
       </div>
     );
   }
@@ -42,7 +44,6 @@ const MCsecond = () => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
         },
       },
       {
@@ -64,49 +65,49 @@ const MCsecond = () => {
   };
 
   return (
-    <div className="mctwo mx-2">
+    <div className="mctwo m-2 my-4">
       <Slider {...settings}>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>
         </div>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>
         </div>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>
         </div>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>
         </div>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>
         </div>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>
         </div>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>
         </div>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>
         </div>
-        <div className="carousel-img">
+        <div className="carousel-img hovereffect">
           <Link to="/" className="link">
             <p className="text-center link-p">Hello</p>
           </Link>

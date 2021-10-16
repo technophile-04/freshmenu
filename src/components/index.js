@@ -1,3 +1,5 @@
-import Navbar from './Navbar';
+import Navbar from "./Navbar";
+import MultiCarousel from "./MultiCarousel";
+import ImageCard from "./ImageCard";
 
-export { Navbar };
+export { Navbar, MultiCarousel, ImageCard };
