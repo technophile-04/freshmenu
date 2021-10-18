@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MultiCarousel, DetailCard } from './';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../utils/init-firebase';
 
 const Home = () => {
+	const [products, setProducts] = useState([]);
+
+	const productsCollectionRef = collection(db, 'products');
+
+	useEffect(() => {
+		const getProducts = async () => {
+			try {
+				const data = await getDocs(productsCollectionRef);
+
+				setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+			} catch (error) {
+				console.log(error.message);
+			}
+		};
+
+		getProducts();
+	}, [productsCollectionRef]);
+
 	return (
 		<>
 			<MultiCarousel />
@@ -9,61 +29,15 @@ const Home = () => {
 				<div className="row">
 					<div className="col-10 mx-auto">
 						<div className="row">
-							<DetailCard
-								topContent="top content"
-								img="https://d3gy1em549lxx2.cloudfront.net/f55829ab-eacf-4636-984c-d0ca7e83acd7.jpg"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
-
-							<DetailCard
-								topContent="top content"
-								img="https://d3gy1em549lxx2.cloudfront.net/c147774b-3037-4213-adfc-b37088280205.jpg"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
-							<DetailCard
-								topContent="top content"
-								img="https://picsum.photos/500/290"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
-							<DetailCard
-								topContent="top content"
-								img="https://picsum.photos/500/290"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
-							<DetailCard
-								topContent="top content"
-								img="https://picsum.photos/500/290"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
-							<DetailCard
-								topContent="top content"
-								img="https://picsum.photos/500/290"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
-							<DetailCard
-								topContent="top content"
-								img="https://picsum.photos/500/290"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
-							<DetailCard
-								topContent="top content"
-								img="https://picsum.photos/500/290"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
-							<DetailCard
-								topContent="top content"
-								img="https://picsum.photos/500/290"
-								name="Food ka fancy naam"
-								cost="XXX"
-							/>
+							{products?.map((product) => (
+								<DetailCard
+									topContent={product.calories}
+									img={product.img}
+									name={product.name}
+									cost={product.price}
+									veg={product.veg}
+								/>
+							))}
 						</div>
 					</div>
 				</div>
