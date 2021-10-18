@@ -3,6 +3,7 @@ import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 	onAuthStateChanged,
+	signOut,
 } from 'firebase/auth';
 import { auth } from '../utils/init-firebase';
 
@@ -26,10 +27,15 @@ const useProvideAuth = () => {
 		return signInWithEmailAndPassword(auth, email, password);
 	};
 
+	const logout = () => {
+		return signOut(auth);
+	};
+
 	return {
 		currentUser,
 		login,
 		register,
+		logout,
 	};
 };
 

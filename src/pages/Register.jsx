@@ -1,10 +1,10 @@
 import { Snackbar } from '@mui/material';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useAuth, useFormInput, useMounted } from '../hooks';
 import MuiAlert from '@mui/material/Alert';
 import { auth } from '../utils/init-firebase';
-import { updateProfile, updatePhoneNumber } from 'firebase/auth';
+import { updateProfile } from 'firebase/auth';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
 	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -22,6 +22,9 @@ const Register = () => {
 		severity: 'success',
 		msg: 'Hii',
 	});
+
+	const history = useHistory();
+	const location = useLocation();
 
 	const mounted = useMounted();
 
@@ -70,6 +73,9 @@ const Register = () => {
 				msg: `Hi ${fullName}, you are registerd!`,
 			});
 			setOpenSnack(true);
+			setTimeout(function () {
+				history.push(location.state?.from ?? '/');
+			}, 1000);
 		} catch (error) {
 			setSnackBarOpt({
 				severity: 'error',

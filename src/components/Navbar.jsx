@@ -1,9 +1,21 @@
-import { Tooltip, Zoom } from '@mui/material';
+import { Tooltip, Zoom, Button } from '@mui/material';
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import MCsecond from './MCsecond';
+import { useAuth } from '../hooks';
 
 function Navbar() {
+	const { currentUser, logout } = useAuth();
+
+	const handleClick = async () => {
+		try {
+			const res = await logout();
+			console.log(res);
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+
 	return (
 		<>
 			<div className="container-fluid nav_bg border-bottom">
@@ -95,20 +107,34 @@ function Navbar() {
 								<div className="p-2 m-3 mx-4 fw-bold fs-5 hovereffect">
 									Offers
 								</div>
-								<div className="p-2 m-3 mx-4 hovereffect">
-									<Link to="/register">
-										<Tooltip TransitionComponent={Zoom} title="Register" arrow>
-											<i className="fas fa-user-plus fa-lg"></i>
-										</Tooltip>
-									</Link>
-								</div>
-								<div className="p-2 m-3 mx-4 hovereffect">
-									<Link to="/login">
-										<Tooltip TransitionComponent={Zoom} title="Login" arrow>
-											<i className="fas fa-sign-in-alt fa-lg"></i>
-										</Tooltip>
-									</Link>
-								</div>
+								{!currentUser && (
+									<div className="p-2 m-3 mx-4 hovereffect">
+										<Link to="/register">
+											<Tooltip
+												TransitionComponent={Zoom}
+												title="Register"
+												arrow
+											>
+												<i className="fas fa-user-plus fa-lg"></i>
+											</Tooltip>
+										</Link>
+									</div>
+								)}
+
+								{!currentUser && (
+									<div className="p-2 m-3 mx-4 hovereffect">
+										<Link to="/login">
+											<Tooltip TransitionComponent={Zoom} title="Login" arrow>
+												<i className="fas fa-sign-in-alt fa-lg"></i>
+											</Tooltip>
+										</Link>
+									</div>
+								)}
+								{currentUser && (
+									<Button variant="text" onClick={handleClick}>
+										Logout
+									</Button>
+								)}
 							</div>
 						</nav>
 					</div>

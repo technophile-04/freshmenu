@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useFormInput, useMounted, useAuth } from '../hooks';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -17,6 +17,9 @@ const Login = () => {
 		severity: 'success',
 		msg: 'Hii',
 	});
+
+	const history = useHistory();
+	const location = useLocation();
 
 	const { login } = useAuth();
 
@@ -45,8 +48,17 @@ const Login = () => {
 		setIsSubmitting(true);
 
 		try {
-			const res = await login(email.value, password.value);
-			console.log(res);
+			const { user } = await login(email.value, password.value);
+			console.log(user);
+			setSnackBarOpt({
+				severity: 'success',
+				msg: `Hi ${user.displayName} welcome !`,
+			});
+			setOpenSnack(true);
+
+			setTimeout(function () {
+				history.push(location.state?.from ?? '/');
+			}, 1000);
 		} catch (error) {
 			console.log(error);
 			setSnackBarOpt({

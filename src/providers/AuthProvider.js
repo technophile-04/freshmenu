@@ -2,9 +2,10 @@ import React, { createContext } from 'react';
 import { useProvideAuth } from '../hooks';
 
 const initialState = {
-	currenUser: null,
+	currentUser: null,
 	login: () => Promise,
 	register: () => Promise,
+	logout: () => Promise,
 };
 
 export const AuthContext = createContext(initialState);
