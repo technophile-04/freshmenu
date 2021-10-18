@@ -1,17 +1,105 @@
-import React from 'react';
+import { Snackbar } from '@mui/material';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth, useFormInput, useMounted } from '../hooks';
+import MuiAlert from '@mui/material/Alert';
+import { auth } from '../utils/init-firebase';
+import { updateProfile, updatePhoneNumber } from 'firebase/auth';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+	return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Register = () => {
+	const firstName = useFormInput('');
+	const lastName = useFormInput('');
+	const mobNumber = useFormInput();
+	const email = useFormInput('');
+	const password = useFormInput('');
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [openSnack, setOpenSnack] = useState(false);
+	const [snackBarOpt, setSnackBarOpt] = useState({
+		severity: 'success',
+		msg: 'Hii',
+	});
+
+	const mounted = useMounted();
+
+	const { register } = useAuth();
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setOpenSnack(false);
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		if (
+			!email.value ||
+			!password.value ||
+			!firstName.value ||
+			!lastName.value ||
+			!mobNumber.value
+		) {
+			setSnackBarOpt({
+				severity: 'error',
+				msg: 'Please enter all credentials',
+			});
+			setOpenSnack(true);
+
+			return;
+		}
+
+		setIsSubmitting(true);
+
+		try {
+			const res = await register(email.value, password.value);
+			const fullName = firstName.value + ' ' + lastName.value;
+			const mobileNo = '+91' + mobNumber.value;
+			await updateProfile(auth.currentUser, {
+				displayName: fullName,
+				phoneNumber: mobileNo,
+			});
+			console.log(res);
+			setSnackBarOpt({
+				severity: 'success',
+				msg: `Hi ${fullName}, you are registerd!`,
+			});
+			setOpenSnack(true);
+		} catch (error) {
+			setSnackBarOpt({
+				severity: 'error',
+				msg: error.message,
+			});
+			setOpenSnack(true);
+		}
+
+		mounted && setIsSubmitting(false);
+	};
+
 	return (
 		<div
 			className="d-flex justify-content-center align-items-center bg-light"
 			style={{ minHeight: '100vh', backgroundColor: '#b3b3b3' }}
 		>
+			<Snackbar open={openSnack} autoHideDuration={3000} onClose={handleClose}>
+				<Alert
+					onClose={handleClose}
+					severity={snackBarOpt.severity}
+					sx={{ width: '100%' }}
+				>
+					{snackBarOpt.msg}
+				</Alert>
+			</Snackbar>
 			<div
 				className="w-100 p-4 shadow bg-white rounded"
 				style={{ maxWidth: 350 }}
 			>
-				<form>
+				<form onSubmit={handleSubmit}>
 					<div className="row mb-3">
 						<div className="col-md-6 d-flex justify-content-center">
 							<button
@@ -41,6 +129,7 @@ const Register = () => {
 							type="text"
 							className="form-control"
 							placeholder="First Name"
+							{...firstName}
 						/>
 					</div>
 					<div className="form-outline mb-4">
@@ -48,23 +137,31 @@ const Register = () => {
 							type="text"
 							className="form-control"
 							placeholder="Last Name"
+							{...lastName}
+						/>
+					</div>
+					<div className="form-outline mb-4">
+						<input
+							type="number"
+							className="form-control"
+							placeholder="10 digit Mobile Number"
+							{...mobNumber}
 						/>
 					</div>
 					<div className="form-outline mb-4">
 						<input
 							type="email"
 							className="form-control"
-							placeholder="10 digit Mobile Number"
+							placeholder="Email"
+							{...email}
 						/>
-					</div>
-					<div className="form-outline mb-4">
-						<input type="email" className="form-control" placeholder="Email" />
 					</div>
 					<div className="form-outline mb-4">
 						<input
 							type="password"
 							className="form-control"
 							placeholder="Password"
+							{...password}
 						/>
 					</div>
 
@@ -72,7 +169,14 @@ const Register = () => {
 						type="submit"
 						className="btn btn-block mb-3 w-100 login-button"
 					>
-						Send OTP
+						{isSubmitting && (
+							<span
+								class="spinner-border spinner-border-sm"
+								role="status"
+								aria-hidden="true"
+							></span>
+						)}
+						{isSubmitting ? 'Registersing...' : 'Register'}
 					</button>
 					<hr />
 					<div className="text-center">

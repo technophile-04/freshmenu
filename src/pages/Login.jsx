@@ -13,7 +13,7 @@ const Login = () => {
 	const password = useFormInput('');
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [openSnack, setOpenSnack] = useState(false);
-	const [snackBarOpt, setsnackBarOpt] = useState({
+	const [snackBarOpt, setSnackBarOpt] = useState({
 		severity: 'success',
 		msg: 'Hii',
 	});
@@ -34,7 +34,7 @@ const Login = () => {
 		e.preventDefault();
 
 		if (!email.value || !password.value) {
-			setsnackBarOpt({
+			setSnackBarOpt({
 				severity: 'error',
 				msg: 'Please fill all the fields',
 			});
@@ -49,7 +49,7 @@ const Login = () => {
 			console.log(res);
 		} catch (error) {
 			console.log(error);
-			setsnackBarOpt({
+			setSnackBarOpt({
 				severity: 'error',
 				msg: error.message,
 			});
