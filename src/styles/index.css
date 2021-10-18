@@ -139,12 +139,11 @@ code {
 .btn-gradient {
 	color: white !important;
 	border-radius: 30px !important;
-	background: rgb(242, 216, 9);
-	background: linear-gradient(
-		90deg,
-		rgba(242, 216, 9, 1) 11%,
-		rgba(227, 165, 6, 1) 41%
-	);
+	/* background: rgb(242, 216, 9); */
+	background-image: linear-gradient(to right, #f5914e, #e85826);
+	font-size: 16px;
+	font-weight: 600;
+	width: 110px;
 }
 
 .card-body {
