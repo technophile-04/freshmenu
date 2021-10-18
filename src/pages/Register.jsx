@@ -83,6 +83,14 @@ const Register = () => {
 							</Link>
 						</p>
 					</div>
+					<div className="text-center">
+						<p>
+							Back to{' '}
+							<Link to="/" style={{ color: '#e85826' }}>
+								Home
+							</Link>
+						</p>
+					</div>
 				</form>
 			</div>
 		</div>
