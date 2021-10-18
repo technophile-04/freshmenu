@@ -28,7 +28,7 @@ const Register = () => {
 
 	const mounted = useMounted();
 
-	const { register } = useAuth();
+	const { register, logInWithGoogle } = useAuth();
 
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -40,22 +40,6 @@ const Register = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		if (
-			!email.value ||
-			!password.value ||
-			!firstName.value ||
-			!lastName.value ||
-			!mobNumber.value
-		) {
-			setSnackBarOpt({
-				severity: 'error',
-				msg: 'Please enter all credentials',
-			});
-			setOpenSnack(true);
-
-			return;
-		}
 
 		setIsSubmitting(true);
 
@@ -85,6 +69,18 @@ const Register = () => {
 		}
 
 		mounted && setIsSubmitting(false);
+	};
+
+	const handleGoogleSignIn = async () => {
+		try {
+			const { user } = await logInWithGoogle();
+
+			console.log(user);
+
+			history.push(location.state?.from ?? '/');
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -121,6 +117,7 @@ const Register = () => {
 								type="submit"
 								className="btn btn-block w-100 mb-2"
 								style={{ backgroundColor: '#4285F4', borderRadius: 3 }}
+								onClick={handleGoogleSignIn}
 							>
 								<i className="fab fa-google" style={{ color: 'white' }}></i>
 							</button>
@@ -135,6 +132,7 @@ const Register = () => {
 							type="text"
 							className="form-control"
 							placeholder="First Name"
+							required
 							{...firstName}
 						/>
 					</div>
@@ -143,6 +141,7 @@ const Register = () => {
 							type="text"
 							className="form-control"
 							placeholder="Last Name"
+							required
 							{...lastName}
 						/>
 					</div>
@@ -151,6 +150,7 @@ const Register = () => {
 							type="number"
 							className="form-control"
 							placeholder="10 digit Mobile Number"
+							required
 							{...mobNumber}
 						/>
 					</div>
@@ -159,6 +159,7 @@ const Register = () => {
 							type="email"
 							className="form-control"
 							placeholder="Email"
+							required
 							{...email}
 						/>
 					</div>
@@ -167,6 +168,7 @@ const Register = () => {
 							type="password"
 							className="form-control"
 							placeholder="Password"
+							required
 							{...password}
 						/>
 					</div>

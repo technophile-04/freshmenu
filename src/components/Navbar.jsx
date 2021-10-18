@@ -131,7 +131,11 @@ function Navbar() {
 									</div>
 								)}
 								{currentUser && (
-									<Button variant="text" onClick={handleClick}>
+									<Button
+										variant="text"
+										onClick={handleClick}
+										style={{ color: 'rgb(255, 145, 0)' }}
+									>
 										Logout
 									</Button>
 								)}

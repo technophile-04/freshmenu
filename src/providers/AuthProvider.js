@@ -6,6 +6,7 @@ const initialState = {
 	login: () => Promise,
 	register: () => Promise,
 	logout: () => Promise,
+	logInWithGoogle: () => Promise,
 };
 
 export const AuthContext = createContext(initialState);

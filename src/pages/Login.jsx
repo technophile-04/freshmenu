@@ -21,7 +21,7 @@ const Login = () => {
 	const history = useHistory();
 	const location = useLocation();
 
-	const { login } = useAuth();
+	const { login, logInWithGoogle } = useAuth();
 
 	const mounted = useMounted();
 
@@ -35,15 +35,6 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-
-		if (!email.value || !password.value) {
-			setSnackBarOpt({
-				severity: 'error',
-				msg: 'Please fill all the fields',
-			});
-			setOpenSnack(true);
-			return;
-		}
 
 		setIsSubmitting(true);
 
@@ -60,7 +51,6 @@ const Login = () => {
 				history.push(location.state?.from ?? '/');
 			}, 1000);
 		} catch (error) {
-			console.log(error);
 			setSnackBarOpt({
 				severity: 'error',
 				msg: error.message,
@@ -69,6 +59,18 @@ const Login = () => {
 		}
 
 		mounted && setIsSubmitting(false);
+	};
+
+	const handleGoogleSignIn = async () => {
+		try {
+			const { user } = await logInWithGoogle();
+
+			console.log(user);
+
+			history.push(location.state?.from ?? '/');
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -103,6 +105,7 @@ const Login = () => {
 							<button
 								className="btn btn-block w-100"
 								style={{ backgroundColor: '#4285F4', borderRadius: 3 }}
+								onClick={handleGoogleSignIn}
 							>
 								<i className="fab fa-google" style={{ color: 'white' }}></i>
 							</button>
@@ -117,6 +120,7 @@ const Login = () => {
 							id="loginName"
 							className="form-control"
 							placeholder="Email ID"
+							required
 							{...email}
 						/>
 					</div>
@@ -126,6 +130,7 @@ const Login = () => {
 							id="loginName"
 							className="form-control"
 							placeholder="Password"
+							required
 							{...password}
 						/>
 					</div>
