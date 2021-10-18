@@ -21,7 +21,7 @@ const Login = () => {
 	const history = useHistory();
 	const location = useLocation();
 
-	const { login, logInWithGoogle } = useAuth();
+	const { login, logInWithGoogle, logInWithFacebook } = useAuth();
 
 	const mounted = useMounted();
 
@@ -73,6 +73,16 @@ const Login = () => {
 		}
 	};
 
+	const handleFacebookLogin = async () => {
+		try {
+			const res = await logInWithFacebook();
+			console.log(res);
+			history.push(location.state?.from ?? '/');
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<div
 			className="d-flex justify-content-center align-items-center bg-light"
@@ -97,6 +107,7 @@ const Login = () => {
 							<button
 								className="btn btn-block w-100 mb-2"
 								style={{ backgroundColor: '#4267B2', borderRadius: 3 }}
+								onClick={handleFacebookLogin}
 							>
 								<i className="fab fa-facebook-f" style={{ color: 'white' }}></i>
 							</button>

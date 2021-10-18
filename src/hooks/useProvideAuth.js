@@ -6,6 +6,7 @@ import {
 	signOut,
 	GoogleAuthProvider,
 	signInWithPopup,
+	FacebookAuthProvider,
 } from 'firebase/auth';
 import { auth } from '../utils/init-firebase';
 
@@ -35,6 +36,14 @@ const useProvideAuth = () => {
 		return signInWithPopup(auth, provider);
 	};
 
+	const logInWithFacebook = () => {
+		const provider = new FacebookAuthProvider();
+
+		provider.addScope('email');
+
+		return signInWithPopup(auth, provider);
+	};
+
 	const logout = () => {
 		return signOut(auth);
 	};
@@ -45,6 +54,7 @@ const useProvideAuth = () => {
 		register,
 		logout,
 		logInWithGoogle,
+		logInWithFacebook,
 	};
 };
 

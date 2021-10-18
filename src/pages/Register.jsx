@@ -28,7 +28,7 @@ const Register = () => {
 
 	const mounted = useMounted();
 
-	const { register, logInWithGoogle } = useAuth();
+	const { register, logInWithGoogle, logInWithFacebook } = useAuth();
 
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -83,6 +83,16 @@ const Register = () => {
 		}
 	};
 
+	const handleFacebookLogin = async () => {
+		try {
+			const res = await logInWithFacebook();
+			console.log(res);
+			history.push(location.state?.from ?? '/');
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<div
 			className="d-flex justify-content-center align-items-center bg-light"
@@ -108,6 +118,7 @@ const Register = () => {
 								type="submit"
 								className="btn btn-block w-100 mb-2"
 								style={{ backgroundColor: '#4267B2', borderRadius: 3 }}
+								onClick={handleFacebookLogin}
 							>
 								<i className="fab fa-facebook-f" style={{ color: 'white' }}></i>
 							</button>
