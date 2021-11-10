@@ -1,6 +1,6 @@
 import { Snackbar } from '@mui/material';
 import React, { useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { useAuth, useFormInput, useMounted } from '../hooks';
 import MuiAlert from '@mui/material/Alert';
 import { auth } from '../utils/init-firebase';
@@ -28,7 +28,8 @@ const Register = () => {
 
 	const mounted = useMounted();
 
-	const { register, logInWithGoogle, logInWithFacebook } = useAuth();
+	const { register, logInWithGoogle, logInWithFacebook, currentUser } =
+		useAuth();
 
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
@@ -37,6 +38,10 @@ const Register = () => {
 
 		setOpenSnack(false);
 	};
+
+	if (currentUser) {
+		return <Redirect to="/" />;
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();

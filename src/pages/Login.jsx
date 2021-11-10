@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { useFormInput, useMounted, useAuth } from '../hooks';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
@@ -21,9 +21,13 @@ const Login = () => {
 	const history = useHistory();
 	const location = useLocation();
 
-	const { login, logInWithGoogle, logInWithFacebook } = useAuth();
+	const { login, logInWithGoogle, logInWithFacebook, currentUser } = useAuth();
 
 	const mounted = useMounted();
+
+	if (currentUser) {
+		return <Redirect to="/" />;
+	}
 
 	const handleClose = (event, reason) => {
 		if (reason === 'clickaway') {
