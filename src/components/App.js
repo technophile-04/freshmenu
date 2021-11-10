@@ -4,13 +4,6 @@ import '../../node_modules/bootstrap/dist/js/bootstrap.bundle';
 import { Home, Login, ProductDetails, Register } from '../pages';
 import { Navbar } from './';
 
-/* 
-   ?TODO
-   [] make privatRoute
-   [] make login protected
-   [] make signUP protected
-*/
-
 function App() {
 	return (
 		<div className="App">
